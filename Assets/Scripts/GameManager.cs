@@ -67,4 +67,5 @@ public class GameManager : MonoBehaviour
         }
     }
     public int getCurrentPoints() { return currentScore; }
+    public float getTimeRemaining() { return gameTimeRemaining; }
 }

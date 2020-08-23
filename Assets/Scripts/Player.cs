@@ -117,4 +117,6 @@ public class Player : MonoBehaviour
         }
     }
 
+    public int getCurrentLives() { return playerLivesRemaining; }
+
 }

@@ -12,7 +12,6 @@ public class Score : MonoBehaviour
     {
         GameObject theManager = GameObject.Find("GameManager");
         myGameManager = theManager.GetComponent<GameManager>();
-        
     }
 
     // Update is called once per frame
