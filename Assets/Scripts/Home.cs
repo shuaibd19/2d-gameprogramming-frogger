@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Home : MonoBehaviour
 {
+    static bool isTrigger = true;
     // Start is called before the first frame update
     void Start()
     {

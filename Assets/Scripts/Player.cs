@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rBody;
 
     private GameManager myGameManager; //A reference to the GameManager in the scene.
-    int houses = 5;
+    static int houses = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -42,29 +42,20 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //------------------TODO------------------------
-        //MAKE SURE THE PLAYER DOES NOT EXCEED BOUNDS OF WORLD SPACE
-
-        //failure 
-        if (playerLivesRemaining <= 0)
-        {
-            playerIsAlive = false;
-            playerCanMove = false;
-            myGameManager.isGameRunning = false;
-            //add code here to capture the players points and time
-        }
-
-        //success
-        if (houses == 0)
-        {
-            //add code here to capture the players points and time
-            //reset the game and add other code
-            playerLivesRemaining = playerTotalLives;
-        }
-
         if (myGameManager.isGameRunning)
         {
+            //------------------TODO------------------------
+            //MAKE SURE THE PLAYER DOES NOT EXCEED BOUNDS OF WORLD SPACE
+
+            //failure 
+            if (playerLivesRemaining == 0)
+            {
+                playerIsAlive = false;
+                playerCanMove = false;
+                myGameManager.isGameRunning = false;
+                //add code here to capture the players points and time
+            }
+
             if (playerIsAlive && playerCanMove)
             {
                 //up
@@ -87,6 +78,16 @@ public class Player : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     rBody.MovePosition(rBody.position + Vector2.right);
+                }
+
+                //success
+                if (houses == 0)
+                {
+                    //add code here to capture the players points and time
+                    //reset the game and add other code
+                    myGameManager.addPoints(1000);
+                    playerLivesRemaining = playerTotalLives;
+                    playerCanMove = false;
                 }
             }
         }
@@ -114,6 +115,7 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             //tally one off the houses
             houses -= 1;
+            print("houses left: " + houses);
         }
     }
 

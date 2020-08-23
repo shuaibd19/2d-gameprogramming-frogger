@@ -24,16 +24,21 @@ public class GameManager : MonoBehaviour
     public static float gameTimeRemaining = 60f; //The current elapsed time
 
     GameObject player;
-    string PlayaName = "";
+    Player playa;
+    string playaName = "";
+    string currentPlayer = "";
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        Player playa = player.GetComponent<Player>();
-        PlayaName = playa.playerName;
+        playa = player.GetComponent<Player>();
+        currentPlayer = playa.playerName;
+
+        //PlayerPrefs.DeleteAll();
+
         highScore = PlayerPrefs.GetInt("HighScore");
-        print("Hello!!!! " + PlayaName);
+        playaName = PlayerPrefs.GetString("PlayerName", "John");
     }
 
     // Update is called once per frame
@@ -49,6 +54,9 @@ public class GameManager : MonoBehaviour
             {
                 highScore = currentScore;
                 PlayerPrefs.SetInt("HighScore", highScore);
+
+                playaName = currentPlayer;
+                PlayerPrefs.SetString("PlayerName", playaName);
             }
         }
         else
@@ -62,7 +70,7 @@ public class GameManager : MonoBehaviour
     public void addPoints(int points)
     {
         currentScore += points;
-        print("Your current score: " + currentScore);
+        //print("Your current score: " + currentScore);
     }
 
     public void deductPoints(int points)
@@ -70,11 +78,12 @@ public class GameManager : MonoBehaviour
         if (currentScore > 0)
         {
             currentScore -= points;
-            print("Your current score: " + currentScore);
+            //print("Your current score: " + currentScore);
         }
     }
 
     public int getCurrentPoints() { return currentScore; }
     public int getHighestScore() { return highScore; }
     public float getTimeRemaining() { return gameTimeRemaining; }
+    public string getName() { return playaName; }
 }

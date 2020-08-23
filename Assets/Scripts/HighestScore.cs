@@ -17,6 +17,6 @@ public class HighestScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreTxt.text = "Highest Score: " + myGameManager.getHighestScore().ToString();
+        scoreTxt.text = myGameManager.getName() + " - " + myGameManager.getHighestScore().ToString();
     }
 }
