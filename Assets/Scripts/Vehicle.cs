@@ -10,8 +10,8 @@ public class Vehicle : MonoBehaviour
     /// <summary>
     /// -1 = left, 1 = right
     /// </summary>
-    public Vector2 startingPosition; //This variable is to be used to indicate where on the map the vehicle starts (or spawns)
-    public Vector2 endPosition; //This variablle is to be used to indicate the final destination of the vehicle.
+    Vector2 startingPosition; //This variable is to be used to indicate where on the map the vehicle starts (or spawns)
+    Vector2 endPosition; //This variablle is to be used to indicate the final destination of the vehicle.
 
     Rigidbody2D rBody;
     Vector2 fwd;
@@ -32,18 +32,41 @@ public class Vehicle : MonoBehaviour
         //randomising movedirection of vehicle at spawn time
         if (Random.Range(dirMax, dirMin) > 0)
         {
+            //go right
             moveDirection = 1;
+
+            startingPosition.x = -11f;
+            startingPosition.y = -3f;
+
+            endPosition.x = 8f;
+            endPosition.y = -3f;
         }
         else
         {
+            //go left
             moveDirection = -1;
+
+            startingPosition.x = 6.5f;
+            startingPosition.y = -3f;
+
+            endPosition.x = -13f;
+            endPosition.y = -3f;
         }
+
+        //set the vehicles starting position
+        transform.position = startingPosition;
     }
 
     private void FixedUpdate()
     {
+        //movement of vehicle along the x axis
         fwd = new Vector2(transform.right.x, transform.right.y);
         rBody.MovePosition(rBody.position + fwd * Time.fixedDeltaTime * speed * moveDirection);
+
+        if (transform.position.x <= -13f || transform.position.x >= 8f)
+        {
+            //do something when the vehicles reach their bounds
+        }
     }
 
 }
