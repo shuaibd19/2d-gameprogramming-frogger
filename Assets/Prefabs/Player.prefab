@@ -144,8 +144,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: 
-  playerTotalLives: 1
-  playerLivesRemaining: 1
-  playerIsAlive: 1
-  playerCanMove: 1
-  playerSpeed: 5

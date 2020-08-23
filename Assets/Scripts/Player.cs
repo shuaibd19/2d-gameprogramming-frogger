@@ -10,13 +10,13 @@ public class Player : MonoBehaviour
 {
     public string playerName = ""; //The players name for the purpose of storing the high score
    
-    public int playerTotalLives; //Players total possible lives.
-    public int playerLivesRemaining; //PLayers actual lives remaining.
+    int playerTotalLives; //Players total possible lives.
+    int playerLivesRemaining; //PLayers actual lives remaining.
    
-    public bool playerIsAlive = true; //Is the player currently alive?
-    public bool playerCanMove = true; //Can the player currently move?
+    bool playerIsAlive = true; //Is the player currently alive?
+    bool playerCanMove = true; //Can the player currently move?
 
-    public float playerSpeed = 5f;
+    Vector2 startPosition;
 
     Rigidbody2D rBody;
 
@@ -25,6 +25,13 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startPosition.x = -2f;
+        startPosition.y = -4f;
+        playerTotalLives = 5;
+        playerLivesRemaining = playerTotalLives;
+
+
+        transform.position = startPosition;
         //get the rigidy body component attached to the object and assign to rbody
         rBody = GetComponent<Rigidbody2D>();
     }
@@ -38,7 +45,14 @@ public class Player : MonoBehaviour
         //------------------TODO------------------------
         //MAKE SURE THE PLAYER DOES NOT EXCEED BOUNDS OF WORLD SPACE
         //up
-        if (playerIsAlive)
+
+        if (playerLivesRemaining <= 0)
+        {
+            playerIsAlive = false;
+            playerCanMove = false;
+        }
+
+        if (playerIsAlive && playerCanMove)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -60,11 +74,13 @@ public class Player : MonoBehaviour
                 rBody.MovePosition(rBody.position + Vector2.right);
             }
         }
-        else
-        {
-            playerCanMove = false;
-        }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        playerLivesRemaining -= 1;
+        print("Lives Remaining: " + playerLivesRemaining);
+        transform.position = startPosition;
     }
 
 }

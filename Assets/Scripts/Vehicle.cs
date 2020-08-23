@@ -16,16 +16,21 @@ public class Vehicle : MonoBehaviour
     Rigidbody2D rBody;
     Vector2 fwd;
     float maxSpeed = 10f; //setting the upper limit of vehicle spawn speed when randomising
-    float minSpeed = 2.5f; //setting the lower limit of vehicle spawn speed when randomising
+    float minSpeed = 2f; //setting the lower limit of vehicle spawn speed when randomising
     float speed; //This variable is to be used to control the speed of the vehicle.
 
     int moveDirection; //This variabe is to be used to indicate the direction the vehicle is moving in.
     float dirMax = 2f;
     float dirMin = -2f;
 
+    int whichLane;
+
+    public int getLane() { return whichLane; }
+
     // Start is called before the first frame update
     void Start()
     {
+        whichLane = Random.Range(-3, 2);
         rBody = GetComponent<Rigidbody2D>();
         //randomising speed at spawn time
         speed = Random.Range(maxSpeed, minSpeed);
@@ -35,22 +40,84 @@ public class Vehicle : MonoBehaviour
             //go right
             moveDirection = 1;
 
-            startingPosition.x = -11f;
-            startingPosition.y = -3f;
+            //makes some conditions for the y axis lane positions
+            if (whichLane == -3)
+            {
+                startingPosition.y = -3f;
+                endPosition.y = startingPosition.y;
+            }
+            else if (whichLane == -2)
+            {
+                startingPosition.y = -2f;
+                endPosition.y = startingPosition.y;
+            }
+            else if (whichLane == -1)
+            {
+                startingPosition.y = -1f;
+                endPosition.y = startingPosition.y;
+            }
+            else if (whichLane == 0)
+            {
+                startingPosition.y = 0f;
+                endPosition.y = startingPosition.y;
+            }
 
+            else if (whichLane == 1)
+            {
+                startingPosition.y = 1f;
+                endPosition.y = startingPosition.y;
+            }
+
+            else if (whichLane == 2)
+            {
+                startingPosition.y = 2f;
+                endPosition.y = startingPosition.y;
+            }
+
+            startingPosition.x = -11f;
             endPosition.x = 8f;
-            endPosition.y = -3f;
         }
         else
         {
             //go left
             moveDirection = -1;
 
-            startingPosition.x = 6.5f;
-            startingPosition.y = -3f;
+            //makes some conditions for the y axis lane positions
+            if (whichLane == -3)
+            {
+                startingPosition.y = -3f;
+                endPosition.y = startingPosition.y;
+            }
+            else if (whichLane == -2)
+            {
+                startingPosition.y = -2f;
+                endPosition.y = startingPosition.y;
+            }
+            else if (whichLane == -1)
+            {
+                startingPosition.y = -1f;
+                endPosition.y = startingPosition.y;
+            }
+            else if (whichLane == 0)
+            {
+                startingPosition.y = 0f;
+                endPosition.y = startingPosition.y;
+            }
 
+            else if (whichLane == 1)
+            {
+                startingPosition.y = 1f;
+                endPosition.y = startingPosition.y;
+            }
+
+            else if (whichLane == 2)
+            {
+                startingPosition.y = 2f;
+                endPosition.y = startingPosition.y;
+            }
+
+            startingPosition.x = 6.5f;
             endPosition.x = -13f;
-            endPosition.y = -3f;
         }
 
         //set the vehicles starting position
@@ -63,9 +130,12 @@ public class Vehicle : MonoBehaviour
         fwd = new Vector2(transform.right.x, transform.right.y);
         rBody.MovePosition(rBody.position + fwd * Time.fixedDeltaTime * speed * moveDirection);
 
-        if (transform.position.x <= -13f || transform.position.x >= 8f)
+        if (transform.position.x < -13f || transform.position.x > 8f)
         {
             //do something when the vehicles reach their bounds
+            //in this case re enter the screen in the opposite direction lol atm this doesnt work
+            moveDirection *= -1;
+            Destroy(this.gameObject);
         }
     }
 

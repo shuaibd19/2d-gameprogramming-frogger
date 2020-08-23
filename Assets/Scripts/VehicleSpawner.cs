@@ -6,11 +6,10 @@ public class VehicleSpawner : MonoBehaviour
 {
     //reference to vehicle game object it will be spawning
     public GameObject vhcl;
-    float countDown = 2.5f;
+    float countDown = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -21,7 +20,7 @@ public class VehicleSpawner : MonoBehaviour
             //create an instance of a vehicle
             SpawnVehicle();
             //reset the timer
-            countDown = 2.5f;
+            countDown = 0.5f;
         }
         else
         {
