@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player");
         Player playa = player.GetComponent<Player>();
         PlayaName = playa.playerName;
+        highScore = PlayerPrefs.GetInt("HighScore");
         print("Hello!!!! " + PlayaName);
     }
 
@@ -39,15 +40,21 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //logic for the game to only run for 60 seconds
-        if (totalGameTime >= gameTimeRemaining)
+        if (totalGameTime >= gameTimeRemaining && isGameRunning)
         {
             isGameRunning = false;
             print("You ran out of time!");
+            //logic to check high score
+            if (currentScore > highScore)
+            {
+                highScore = currentScore;
+                PlayerPrefs.SetInt("HighScore", highScore);
+            }
         }
         else
         {
             totalGameTime += Time.deltaTime;
-            gameTimeRemaining -= Time.deltaTime;
+            gameTimeRemaining -= Time.deltaTime; 
         }
     }
 
@@ -66,6 +73,8 @@ public class GameManager : MonoBehaviour
             print("Your current score: " + currentScore);
         }
     }
+
     public int getCurrentPoints() { return currentScore; }
+    public int getHighestScore() { return highScore; }
     public float getTimeRemaining() { return gameTimeRemaining; }
 }
