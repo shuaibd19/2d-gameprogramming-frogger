@@ -16,7 +16,7 @@ public class Vehicle : MonoBehaviour
     Rigidbody2D rBody;
     Vector2 fwd;
     float maxSpeed = 10f; //setting the upper limit of vehicle spawn speed when randomising
-    float minSpeed = 2f; //setting the lower limit of vehicle spawn speed when randomising
+    float minSpeed = 5f; //setting the lower limit of vehicle spawn speed when randomising
     float speed; //This variable is to be used to control the speed of the vehicle.
 
     int moveDirection; //This variabe is to be used to indicate the direction the vehicle is moving in.
@@ -132,9 +132,6 @@ public class Vehicle : MonoBehaviour
 
         if (transform.position.x < -13f || transform.position.x > 8f)
         {
-            //do something when the vehicles reach their bounds
-            //in this case re enter the screen in the opposite direction lol atm this doesnt work
-            moveDirection *= -1;
             Destroy(this.gameObject);
         }
     }

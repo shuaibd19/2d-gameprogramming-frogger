@@ -27,13 +27,12 @@ public class Player : MonoBehaviour
     {
         startPosition.x = -2f;
         startPosition.y = -4f;
+        transform.position = startPosition;
         playerTotalLives = 5;
         playerLivesRemaining = playerTotalLives;
-
-
-        transform.position = startPosition;
         //get the rigidy body component attached to the object and assign to rbody
         rBody = GetComponent<Rigidbody2D>();
+        myGameManager = GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -57,6 +56,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 rBody.MovePosition(rBody.position + Vector2.up);
+                myGameManager.addPoints(10);
             }
             //down
             else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -78,9 +78,19 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        playerLivesRemaining -= 1;
-        print("Lives Remaining: " + playerLivesRemaining);
-        transform.position = startPosition;
+        if (collision.tag == "vehicle")
+        {
+            playerLivesRemaining -= 1;
+            print("Lives Remaining: " + playerLivesRemaining);
+            transform.position = startPosition;
+            myGameManager.deductPoints(myGameManager.getCurrentPoints() / 3);
+        }
+        else if (collision.tag == "home")
+        {
+            print("Yay!!");
+            myGameManager.addPoints(50);
+            transform.position = startPosition;
+        }
     }
 
 }

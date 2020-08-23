@@ -33,4 +33,22 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    //this is bad practice as someone could hack this but ....
+    public void addPoints(int points)
+    {
+        currentScore += points;
+        print("Your current score: " + currentScore);
+    }
+
+    public void deductPoints(int points)
+    {
+        if (currentScore > 0)
+        {
+            currentScore -= points;
+            print("Your current score: " + currentScore);
+        }
+    }
+
+    public int getCurrentPoints() { return currentScore; }
 }

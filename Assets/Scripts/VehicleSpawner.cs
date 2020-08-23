@@ -27,7 +27,6 @@ public class VehicleSpawner : MonoBehaviour
             //deduct in real time from countdown until it reaches the condition
             countDown -= Time.deltaTime;
         }
-        
     }
 
     void SpawnVehicle()
