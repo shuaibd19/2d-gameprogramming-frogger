@@ -16,18 +16,46 @@ public class Player : MonoBehaviour
     public bool playerIsAlive = true; //Is the player currently alive?
     public bool playerCanMove = false; //Can the player currently move?
 
+    public float playerSpeed = 5f;
+
+    Rigidbody2D rBody;
+
     private GameManager myGameManager; //A reference to the GameManager in the scene.
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        //get the rigidy body component attached to the object and assign to rbody
+        rBody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        //adding movement functionality to player using arrow keys
+        //player's movement is not continous and only snaps into a single unit in the grid
+
+        //up
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            rBody.MovePosition(rBody.position + Vector2.up);
+        }
+        //down
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            rBody.MovePosition(rBody.position + Vector2.down);
+        }
+        //left
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            rBody.MovePosition(rBody.position + Vector2.left);
+        }
+        //right
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            rBody.MovePosition(rBody.position + Vector2.right);
+        }
+
     }
 
 }
