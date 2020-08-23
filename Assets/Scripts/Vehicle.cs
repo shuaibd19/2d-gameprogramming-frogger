@@ -39,6 +39,7 @@ public class Vehicle : MonoBehaviour
         {
             //go right
             moveDirection = 1;
+            
 
             //makes some conditions for the y axis lane positions
             if (whichLane == -3)
