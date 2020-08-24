@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //if the player hits an oncoming vehicle
-        if (collision.tag == "vehicle")
+        if (collision.tag == "vehicle" || collision.tag == "doom")
         {
             //reduce the players life by one
             playerLivesRemaining -= 1;

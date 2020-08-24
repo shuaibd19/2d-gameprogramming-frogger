@@ -58,10 +58,7 @@ public class GameManager : MonoBehaviour
             isGameRunning = false;
             print("You ran out of time!");
             //logic to check high score
-            if (currentScore > highScore)
-            {
-                storeScore();
-            }
+            storeScore();
         }
         else
         {
@@ -112,10 +109,13 @@ public class GameManager : MonoBehaviour
 
     public void storeScore()
     {
-        highScore = currentScore;
-        PlayerPrefs.SetInt("HighScore", highScore);
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            PlayerPrefs.SetInt("HighScore", highScore);
 
-        playaName = currentPlayer;
-        PlayerPrefs.SetString("PlayerName", playaName);
+            playaName = currentPlayer;
+            PlayerPrefs.SetString("PlayerName", playaName);
+        }
     }
 }
