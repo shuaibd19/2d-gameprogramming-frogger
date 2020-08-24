@@ -26,11 +26,16 @@ public class Vehicle : MonoBehaviour
     int whichLane;
 
     public int getLane() { return whichLane; }
+    private GameManager myGameManager; //A reference to the GameManager in the scene.
 
     // Start is called before the first frame update
     void Start()
     {
-        whichLane = Random.Range(-3, 2);
+        //setting my reference to the game manager 
+        GameObject theManager = GameObject.Find("GameManager");
+        myGameManager = theManager.GetComponent<GameManager>();
+
+        whichLane = Random.Range(-3, 3);
         rBody = GetComponent<Rigidbody2D>();
         //randomising speed at spawn time
         speed = Random.Range(maxSpeed, minSpeed);
@@ -72,6 +77,12 @@ public class Vehicle : MonoBehaviour
             else if (whichLane == 2)
             {
                 startingPosition.y = 2f;
+                endPosition.y = startingPosition.y;
+            }
+            
+            else if (whichLane == 3)
+            {
+                startingPosition.y = 3f;
                 endPosition.y = startingPosition.y;
             }
 
@@ -117,6 +128,12 @@ public class Vehicle : MonoBehaviour
                 endPosition.y = startingPosition.y;
             }
 
+            else if (whichLane == 3)
+            {
+                startingPosition.y = 3f;
+                endPosition.y = startingPosition.y;
+            }
+
             startingPosition.x = 6.5f;
             endPosition.x = -13f;
         }
@@ -127,14 +144,18 @@ public class Vehicle : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //movement of vehicle along the x axis
-        fwd = new Vector2(transform.right.x, transform.right.y);
-        rBody.MovePosition(rBody.position + fwd * Time.fixedDeltaTime * speed * moveDirection);
-
-        if (transform.position.x < -13f || transform.position.x > 8f)
+        if (myGameManager.isGameRunning)
         {
-            Destroy(this.gameObject);
+            //movement of vehicle along the x axis
+            fwd = new Vector2(transform.right.x, transform.right.y);
+            rBody.MovePosition(rBody.position + fwd * Time.fixedDeltaTime * speed * moveDirection);
+
+            if (transform.position.x < -13f || transform.position.x > 8f)
+            {
+                Destroy(this.gameObject);
+            }
         }
+  
     }
 
 }

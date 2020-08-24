@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This script is to be attached to a GameObject called GameManager in the scene. It is to be used to manager the settings and overarching gameplay loop.
@@ -18,23 +19,29 @@ public class GameManager : MonoBehaviour
     public float levelConstraintRight; //The maximum positive X value of the playablle space.
 
     [Header("Gameplay Loop")]
-    public bool isGameRunning = true; //Is the gameplay part of the game current active?
+    public bool isGameRunning = false; //Is the gameplay part of the game current active?
     //i made these static to avoid reseting to zero everytime the player reaches a house
-    public static float totalGameTime = 0f; //The maximum amount of time or the total time avilable to the player.
-    public static float gameTimeRemaining = 60f; //The current elapsed time
+    public float totalGameTime = 0f; //The maximum amount of time or the total time avilable to the player.
+    public float gameTimeRemaining = 60f; //The current elapsed time
 
     GameObject player;
     Player playa;
+    TransferName trsnfrName;
     string playaName = "";
     string currentPlayer = "";
+    public GameObject restartGUI;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         playa = player.GetComponent<Player>();
-        currentPlayer = playa.playerName;
+        
+        GameObject trnsfer = GameObject.Find("InputName");
+        trsnfrName = trnsfer.GetComponent<TransferName>();
 
+        currentPlayer = playa.playerName;
+        restartGUI.SetActive(false);
         //PlayerPrefs.DeleteAll();
 
         highScore = PlayerPrefs.GetInt("HighScore");
@@ -47,22 +54,22 @@ public class GameManager : MonoBehaviour
         //logic for the game to only run for 60 seconds
         if (totalGameTime >= gameTimeRemaining && isGameRunning)
         {
+            restartGUI.SetActive(true);
             isGameRunning = false;
             print("You ran out of time!");
             //logic to check high score
             if (currentScore > highScore)
             {
-                highScore = currentScore;
-                PlayerPrefs.SetInt("HighScore", highScore);
-
-                playaName = currentPlayer;
-                PlayerPrefs.SetString("PlayerName", playaName);
+                storeScore();
             }
         }
         else
         {
-            totalGameTime += Time.deltaTime;
-            gameTimeRemaining -= Time.deltaTime; 
+            if (trsnfrName.startTimer && isGameRunning)
+            {
+                totalGameTime += Time.deltaTime;
+                gameTimeRemaining -= Time.deltaTime;
+            }
         }
     }
 
@@ -86,4 +93,29 @@ public class GameManager : MonoBehaviour
     public int getHighestScore() { return highScore; }
     public float getTimeRemaining() { return gameTimeRemaining; }
     public string getName() { return playaName; }
+
+    public void restartGame()
+    {
+        if (!isGameRunning)
+        {
+            restartGUI.SetActive(false);
+            gameTimeRemaining = 60f;
+            totalGameTime = 0f;
+            playa.transform.position = playa.startPosition;
+            playa.resetLives();
+            isGameRunning = true;
+
+            playa.playerIsAlive = true;
+            playa.playerCanMove = true;
+        }
+    }
+
+    public void storeScore()
+    {
+        highScore = currentScore;
+        PlayerPrefs.SetInt("HighScore", highScore);
+
+        playaName = currentPlayer;
+        PlayerPrefs.SetString("PlayerName", playaName);
+    }
 }

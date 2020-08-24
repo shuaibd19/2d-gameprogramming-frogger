@@ -4,6 +4,8 @@ using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
 /// <summary>
 /// This script must be used as the core Player script for managing the player character in the game.
 /// </summary>
@@ -14,10 +16,10 @@ public class Player : MonoBehaviour
     static int playerTotalLives = 5; //Players total possible lives.
     static int playerLivesRemaining = playerTotalLives; //PLayers actual lives remaining.
    
-    bool playerIsAlive = true; //Is the player currently alive?
-    bool playerCanMove = true; //Can the player currently move?
+    public bool playerIsAlive = true; //Is the player currently alive?
+    public bool playerCanMove = true; //Can the player currently move?
 
-    Vector2 startPosition;
+    public Vector2 startPosition;
 
     Rigidbody2D rBody;
 
@@ -30,7 +32,7 @@ public class Player : MonoBehaviour
         //setting my reference to the game manager 
         GameObject theManager = GameObject.Find("GameManager");
         myGameManager = theManager.GetComponent<GameManager>();
-        myGameManager.isGameRunning = true;
+        //myGameManager.isGameRunning = true;
 
         startPosition.x = -2f;
         startPosition.y = -4f;
@@ -52,8 +54,11 @@ public class Player : MonoBehaviour
             {
                 playerIsAlive = false;
                 playerCanMove = false;
+
                 myGameManager.isGameRunning = false;
+                myGameManager.storeScore();
                 //add code here to capture the players points and time
+                myGameManager.restartGUI.SetActive(true); 
             }
 
             if (playerIsAlive && playerCanMove)
@@ -104,7 +109,8 @@ public class Player : MonoBehaviour
             //deduct a third of the current players points
             myGameManager.deductPoints(myGameManager.getCurrentPoints() / 3);
             //reset the player at the base
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            transform.position = startPosition;
         }
         //if the player hits one of the five houses
         if (collision.tag == "home")
@@ -112,7 +118,8 @@ public class Player : MonoBehaviour
             print("Yay!!");
             //add points to the player
             myGameManager.addPoints(50);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            transform.position = startPosition;
             //tally one off the houses
             houses -= 1;
             print("houses left: " + houses);
@@ -120,5 +127,23 @@ public class Player : MonoBehaviour
     }
 
     public int getCurrentLives() { return playerLivesRemaining; }
+    public void restartGame()
+    {
+        if (!playerIsAlive)
+        {
+            myGameManager.restartGUI.SetActive(false);
+            myGameManager.gameTimeRemaining = 60f;
+            myGameManager.totalGameTime = 0f;
+            transform.position = startPosition;
+            resetLives();
+            playerIsAlive = true;
+            playerCanMove = true;
+        }
+    }
+
+    public void resetLives()
+    {
+        playerLivesRemaining = playerTotalLives;
+    }
 
 }
