@@ -12,7 +12,6 @@ public class HouseSpawner : MonoBehaviour
     static Vector3 home4;
     static Vector3 home5;
 
-    float radius = 3f;
     // Start is called before the first frame update
     void Start()
     {
