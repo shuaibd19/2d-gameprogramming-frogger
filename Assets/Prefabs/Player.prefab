@@ -143,5 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2338d10ecd33e424cb94a839a5b093c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Shuaib
-  myGameManager: {fileID: 0}
+  playerName: 
+  playerIsAlive: 1
+  playerCanMove: 1
+  startPosition: {x: 0, y: 0}
+  houses: 5

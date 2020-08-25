@@ -12,10 +12,10 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public string playerName = "Shuaib"; //The players name for the purpose of storing the high score
-   
+
     static int playerTotalLives = 5; //Players total possible lives.
     static int playerLivesRemaining = playerTotalLives; //PLayers actual lives remaining.
-   
+
     public bool playerIsAlive = true; //Is the player currently alive?
     public bool playerCanMove = true; //Can the player currently move?
 
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
                 myGameManager.isGameRunning = false;
                 myGameManager.storeScore();
                 //add code here to capture the players points and time
-                myGameManager.restartGUI.SetActive(true); 
+                myGameManager.restartGUI.SetActive(true);
             }
 
             if (playerIsAlive && playerCanMove)
@@ -131,11 +131,14 @@ public class Player : MonoBehaviour
     {
         if (!playerIsAlive)
         {
+            myGameManager.destroyHome();
             myGameManager.restartGUI.SetActive(false);
             myGameManager.gameTimeRemaining = 60f;
             myGameManager.totalGameTime = 0f;
             transform.position = startPosition;
             resetLives();
+            myGameManager.resetHouse();
+            myGameManager.resetScore();
             playerIsAlive = true;
             playerCanMove = true;
         }
@@ -145,5 +148,4 @@ public class Player : MonoBehaviour
     {
         playerLivesRemaining = playerTotalLives;
     }
-
 }

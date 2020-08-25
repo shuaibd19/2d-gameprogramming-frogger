@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public bool isGameRunning = false; //Is the gameplay part of the game current active?
     //i made these static to avoid reseting to zero everytime the player reaches a house
     public float totalGameTime = 0f; //The maximum amount of time or the total time avilable to the player.
-    public float gameTimeRemaining = 60f; //The current elapsed time
+    public float gameTimeRemaining = 120f; //The current elapsed time
 
     GameObject player;
     Player playa;
@@ -30,19 +30,28 @@ public class GameManager : MonoBehaviour
     string playaName = "";
     string currentPlayer = "";
     public GameObject restartGUI;
+    HouseSpawner houseSpwn;
+    Home home;
+
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         playa = player.GetComponent<Player>();
-        
+
         GameObject trnsfer = GameObject.Find("InputName");
         trsnfrName = trnsfer.GetComponent<TransferName>();
 
+        GameObject theSpawner = GameObject.Find("HouseSpawner");
+        houseSpwn = theSpawner.GetComponent<HouseSpawner>();
+        
+        GameObject theHome = GameObject.Find("Home");
+        home = theHome.GetComponent<Home>();
+
         currentPlayer = playa.playerName;
         restartGUI.SetActive(false);
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         highScore = PlayerPrefs.GetInt("HighScore");
         playaName = PlayerPrefs.GetString("PlayerName", "John");
@@ -95,13 +104,15 @@ public class GameManager : MonoBehaviour
     {
         if (!isGameRunning)
         {
+            destroyHome();
             restartGUI.SetActive(false);
-            gameTimeRemaining = 60f;
+            gameTimeRemaining = 120f;
             totalGameTime = 0f;
             playa.transform.position = playa.startPosition;
             playa.resetLives();
             isGameRunning = true;
-
+            resetHouse();
+            resetScore();
             playa.playerIsAlive = true;
             playa.playerCanMove = true;
         }
@@ -116,6 +127,24 @@ public class GameManager : MonoBehaviour
 
             playaName = currentPlayer;
             PlayerPrefs.SetString("PlayerName", playaName);
+
+            currentScore = 0;
         }
     }
+
+    public void resetScore()
+    {
+        currentScore = 0;
+    }
+
+    public void resetHouse()
+    {
+        houseSpwn.resetHouses();
+    }
+
+    public void destroyHome()
+    {
+        home.destroyMePlease();
+    }
+
 }

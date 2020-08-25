@@ -44,7 +44,7 @@ public class Vehicle : MonoBehaviour
         {
             //go right
             moveDirection = 1;
-            
+
 
             //makes some conditions for the y axis lane positions
             if (whichLane == -3)
@@ -79,7 +79,7 @@ public class Vehicle : MonoBehaviour
                 startingPosition.y = 2f;
                 endPosition.y = startingPosition.y;
             }
-            
+
             else if (whichLane == 3)
             {
                 startingPosition.y = 3f;
@@ -155,7 +155,7 @@ public class Vehicle : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-  
+
     }
 
 }
