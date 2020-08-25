@@ -9,7 +9,7 @@ public class Log : MonoBehaviour
 
     Rigidbody2D rBody;
     Vector2 fwd;
-    float maxSpeed = 4f; //setting the upper limit of vehicle spawn speed when randomising
+    float maxSpeed = 2f; //setting the upper limit of vehicle spawn speed when randomising
     float minSpeed = 2f; //setting the lower limit of vehicle spawn speed when randomising
     public float speed; //This variable is to be used to control the speed of the vehicle.
 
@@ -22,6 +22,7 @@ public class Log : MonoBehaviour
     public int getLane() { return whichLane; }
     private GameManager myGameManager; //A reference to the GameManager in the scene.
 
+    Log loog;
     // Start is called before the first frame update
     void Start()
     {

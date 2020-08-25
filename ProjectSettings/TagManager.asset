@@ -10,6 +10,9 @@ TagManager:
   - abyss
   - log
   - player
+  - safe
+  - win
+  - lose
   layers:
   - Default
   - TransparentFX

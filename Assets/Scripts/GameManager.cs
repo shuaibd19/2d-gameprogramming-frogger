@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     string playaName = "";
     string currentPlayer = "";
     public GameObject restartGUI;
+    public GameObject winGUI;
+    public GameObject loseGUI;
     HouseSpawner houseSpwn;
     Home home;
 
@@ -51,7 +53,9 @@ public class GameManager : MonoBehaviour
 
         currentPlayer = playa.playerName;
         restartGUI.SetActive(false);
-        PlayerPrefs.DeleteAll();
+        winGUI.SetActive(false);
+        loseGUI.SetActive(false);
+        //PlayerPrefs.DeleteAll();
 
         highScore = PlayerPrefs.GetInt("HighScore");
         playaName = PlayerPrefs.GetString("PlayerName", "John");
@@ -64,6 +68,8 @@ public class GameManager : MonoBehaviour
         if (totalGameTime >= gameTimeRemaining && isGameRunning)
         {
             restartGUI.SetActive(true);
+            loseGUI.SetActive(true);
+            winGUI.SetActive(false);
             isGameRunning = false;
             print("You ran out of time!");
             //logic to check high score
@@ -109,6 +115,7 @@ public class GameManager : MonoBehaviour
             gameTimeRemaining = 120f;
             totalGameTime = 0f;
             playa.transform.position = playa.startPosition;
+            playa.removeFromParent();
             playa.resetLives();
             isGameRunning = true;
             resetHouse();

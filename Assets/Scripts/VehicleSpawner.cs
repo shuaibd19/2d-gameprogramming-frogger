@@ -6,7 +6,7 @@ public class VehicleSpawner : MonoBehaviour
 {
     //reference to vehicle game object it will be spawning
     public GameObject vhcl;
-    float countDown = 0.5f;
+    float countDown = 0.75f;
     private GameManager myGameManager; //A reference to the GameManager in the scene.
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class VehicleSpawner : MonoBehaviour
                 //create an instance of a vehicle
                 SpawnVehicle();
                 //reset the timer
-                countDown = 0.5f;
+                countDown = 0.75f;
             }
             else
             {

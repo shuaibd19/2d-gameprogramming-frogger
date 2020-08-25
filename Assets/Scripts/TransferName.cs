@@ -18,6 +18,8 @@ public class TransferName : MonoBehaviour
     void Start()
     {
         canvas.SetActive(true);
+        player = GameObject.Find("Player");
+        playa = player.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -28,8 +30,6 @@ public class TransferName : MonoBehaviour
 
     public void StoreName()
     {
-        player = GameObject.Find("Player");
-        playa = player.GetComponent<Player>();
         thePlayeName = inputField.GetComponent<Text>().text;
 
         playa.playerName = thePlayeName;
