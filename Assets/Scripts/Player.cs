@@ -26,9 +26,13 @@ public class Player : MonoBehaviour
     private GameManager myGameManager; //A reference to the GameManager in the scene.
     static int houses = 5;
 
+    bool logContact;
+    bool waterContact;
     // Start is called before the first frame update
     void Start()
     {
+        logContact = false;
+        waterContact = false;
         //setting my reference to the game manager 
         GameObject theManager = GameObject.Find("GameManager");
         myGameManager = theManager.GetComponent<GameManager>();
@@ -46,9 +50,6 @@ public class Player : MonoBehaviour
     {
         if (myGameManager.isGameRunning)
         {
-            //------------------TODO------------------------
-            //MAKE SURE THE PLAYER DOES NOT EXCEED BOUNDS OF WORLD SPACE
-
             //failure 
             if (playerLivesRemaining == 0)
             {
@@ -83,6 +84,19 @@ public class Player : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     rBody.MovePosition(rBody.position + Vector2.right);
+                }
+
+                if (waterContact && logContact)
+                {
+                    print("Congrats you are safe!");
+                    waterContact = false;
+                    logContact = false;
+                }
+
+                if (waterContact)
+                {
+                    print("You are not safe!");
+                    waterContact = false;
                 }
 
                 //success
@@ -123,6 +137,14 @@ public class Player : MonoBehaviour
             //tally one off the houses
             houses -= 1;
             print("houses left: " + houses);
+        }
+        if (collision.tag == "log")
+        {
+            logContact = true;
+        }
+        if (collision.tag == "abyss")
+        {
+            waterContact = true;
         }
     }
 

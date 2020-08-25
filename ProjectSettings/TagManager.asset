@@ -7,6 +7,9 @@ TagManager:
   - vehicle
   - home
   - doom
+  - abyss
+  - log
+  - player
   layers:
   - Default
   - TransparentFX
