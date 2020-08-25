@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public float totalGameTime = 0f; //The maximum amount of time or the total time avilable to the player.
     public float gameTimeRemaining = 120f; //The current elapsed time
 
+    public float remainderTime = 0f;
+
     GameObject player;
     Player playa;
     TransferName trsnfrName;

@@ -148,3 +148,6 @@ MonoBehaviour:
   playerCanMove: 1
   startPosition: {x: 0, y: 0}
   secondPosition: {x: 0, y: 0}
+  fall: {fileID: 8300000, guid: d4415a9177bfdc94cb4068489d7d680b, type: 3}
+  success: {fileID: 8300000, guid: 8c52ba38130d919448e62879e67fbbc5, type: 3}
+  crash: {fileID: 8300000, guid: 6cf3da30c6449254686a19e485fc19b8, type: 3}

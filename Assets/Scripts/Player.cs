@@ -30,6 +30,12 @@ public class Player : MonoBehaviour
     bool logContact;
     bool waterContact;
     int logs = 0;
+
+    AudioSource audioSource;
+
+    public AudioClip fall;
+    public AudioClip success;
+    public AudioClip crash;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +43,8 @@ public class Player : MonoBehaviour
         GameObject theManager = GameObject.Find("GameManager");
         myGameManager = theManager.GetComponent<GameManager>();
         //myGameManager.isGameRunning = true;
+
+        audioSource = GetComponent<AudioSource>();
 
         startPosition.x = -2f;
         startPosition.y = -4f;
@@ -111,6 +119,8 @@ public class Player : MonoBehaviour
                     //add code here to capture the players points and time
                     //reset the game and add other code
                     myGameManager.addPoints(1000);
+                    myGameManager.remainderTime = myGameManager.gameTimeRemaining - myGameManager.totalGameTime;
+                    myGameManager.addPoints((int)myGameManager.remainderTime * 20);
                     playerLivesRemaining = playerTotalLives;
                     playerCanMove = false;
                     myGameManager.restartGUI.SetActive(true);
@@ -124,8 +134,9 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //if the player hits an oncoming vehicle
-        if (collision.tag == "vehicle" || collision.tag == "doom")
+        if (collision.tag == "vehicle")
         {
+            playSound(crash);
             //reduce the players life by one
             playerLivesRemaining -= 1;
             print("Lives Remaining: " + playerLivesRemaining);
@@ -135,10 +146,25 @@ public class Player : MonoBehaviour
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             transform.position = startPosition;
         }
+
+        if (collision.tag == "doom")
+        {
+            playSound(fall);
+            //reduce the players life by one
+            playerLivesRemaining -= 1;
+            print("Lives Remaining: " + playerLivesRemaining);
+            //deduct a third of the current players points
+            myGameManager.deductPoints(myGameManager.getCurrentPoints() / 3);
+            //reset the player at the base
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            transform.position = startPosition;
+        }
+
         //if the player hits one of the five houses
         if (collision.tag == "home")
         {
             print("Yay!!");
+            playSound(success);
             //add points to the player
             myGameManager.addPoints(50);
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -224,5 +250,10 @@ public class Player : MonoBehaviour
     public void removeFromParent()
     {
         this.gameObject.transform.parent = null;
+    }
+
+    public void playSound(AudioClip c)
+    {
+        audioSource.PlayOneShot(c);
     }
 }
