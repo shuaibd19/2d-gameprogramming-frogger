@@ -14614,6 +14614,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Abyss
       objectReference: {fileID: 0}
+    - target: {fileID: 2590028955148290508, guid: 6283120aebbb15043a52d78684d45676,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 18.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590028955148290508, guid: 6283120aebbb15043a52d78684d45676,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 7.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6554949511637716955, guid: 6283120aebbb15043a52d78684d45676,
         type: 3}
       propertyPath: m_LocalPosition.x

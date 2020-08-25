@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public bool playerCanMove = true; //Can the player currently move?
 
     public Vector2 startPosition;
+    public Vector2 secondPosition;
 
     Rigidbody2D rBody;
 
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
 
     bool logContact;
     bool waterContact;
+    int logs = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,9 @@ public class Player : MonoBehaviour
 
         startPosition.x = -2f;
         startPosition.y = -4f;
+
+        secondPosition.x = -2f;
+        secondPosition.y = 4f;
         transform.position = startPosition;
         //get the rigidy body component attached to the object and assign to rbody
         rBody = GetComponent<Rigidbody2D>();
@@ -86,21 +91,21 @@ public class Player : MonoBehaviour
                     rBody.MovePosition(rBody.position + Vector2.right);
                 }
 
-                if (waterContact && logContact)
-                {
-                    print("Congrats you are safe!");
-                    waterContact = false;
-                    logContact = false;
-                }
+                //if (!waterContact && logContact)
+                //{
+                //    print("Congrats you are safe!");
+                //    waterContact = false;
+                //    logContact = false;
+                //}
 
-                if (waterContact)
-                {
-                    print("You are not safe!");
-                    playerLivesRemaining -= 1;
-                    print("Lives Remaining: " + playerLivesRemaining);
-                    transform.position = startPosition;
-                    waterContact = false;
-                }
+                //if (waterContact && !logContact)
+                //{
+                //    print("You are not safe!");
+                //    playerLivesRemaining -= 1;
+                //    print("Lives Remaining: " + playerLivesRemaining);
+                //    transform.position = secondPosition;
+                //    waterContact = false;
+                //}
 
                 //success
                 if (houses == 0)
@@ -141,13 +146,60 @@ public class Player : MonoBehaviour
             houses -= 1;
             print("houses left: " + houses);
         }
-        if (collision.tag == "log")
-        {
-            logContact = true;
-        }
+        //if (collision.tag == "log")
+        //{
+        //    Vector2 pos = transform.localPosition;
+
+        //    pos.x += collision.GetComponent<Log>().speed * Time.deltaTime;
+
+        //    transform.localPosition = pos;
+
+        //    logContact = true;
+        //    waterContact = false;
+        //}
+        //if (collision.tag == "abyss")
+        //{
+        //    waterContact = true;
+        //    logContact = false;
+        //}
+
+        //if player is over water
         if (collision.tag == "abyss")
         {
             waterContact = true;
+            //if on the water but not a log
+            if (logs == 0)
+            {
+                print("You are not safe!");
+                playerLivesRemaining -= 1;
+                print("Lives Remaining: " + playerLivesRemaining);
+                transform.position = secondPosition;
+            }
+        }
+
+        if (collision.tag == "log")
+        {
+            //make person ride the log by becoming a child of a log
+            this.gameObject.transform.parent = collision.transform;
+            logs += 1;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "log")
+        {
+            logs -= 1;
+
+            //if player on water and not on log
+            if (logs == 0 && waterContact)
+            {
+                this.gameObject.transform.parent = null;
+                print("You are not safe!");
+                playerLivesRemaining -= 1;
+                print("Lives Remaining: " + playerLivesRemaining);
+                transform.position = secondPosition;
+            }
         }
     }
 

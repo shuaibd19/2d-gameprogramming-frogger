@@ -9,9 +9,9 @@ public class Log : MonoBehaviour
 
     Rigidbody2D rBody;
     Vector2 fwd;
-    float maxSpeed = 6f; //setting the upper limit of vehicle spawn speed when randomising
-    float minSpeed = 3f; //setting the lower limit of vehicle spawn speed when randomising
-    float speed; //This variable is to be used to control the speed of the vehicle.
+    float maxSpeed = 4f; //setting the upper limit of vehicle spawn speed when randomising
+    float minSpeed = 2f; //setting the lower limit of vehicle spawn speed when randomising
+    public float speed; //This variable is to be used to control the speed of the vehicle.
 
     int moveDirection; //This variabe is to be used to indicate the direction the vehicle is moving in.
     float dirMax = 2f;
