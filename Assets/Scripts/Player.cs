@@ -96,6 +96,9 @@ public class Player : MonoBehaviour
                 if (waterContact)
                 {
                     print("You are not safe!");
+                    playerLivesRemaining -= 1;
+                    print("Lives Remaining: " + playerLivesRemaining);
+                    transform.position = startPosition;
                     waterContact = false;
                 }
 
