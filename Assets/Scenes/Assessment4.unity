@@ -945,7 +945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 438.1, y: 291.21}
+  m_AnchoredPosition: {x: 438.7, y: 286.6}
   m_SizeDelta: {x: 239.82141, y: 45.57695}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &414550790
@@ -1019,7 +1019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -430.32, y: -289}
+  m_AnchoredPosition: {x: -431, y: -287}
   m_SizeDelta: {x: 255.38959, y: 49.99962}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &461291986
@@ -1094,7 +1094,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 420.3, y: 281.25}
+  m_AnchoredPosition: {x: 365, y: 276}
   m_SizeDelta: {x: 275.40594, y: 65.50964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &469304304
@@ -1233,7 +1233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -430.3, y: 291.2}
+  m_AnchoredPosition: {x: -431, y: 289}
   m_SizeDelta: {x: 255.357, y: 45.549637}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &688583090
@@ -13754,7 +13754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -449.2, y: -277.9}
+  m_AnchoredPosition: {x: -423.2, y: -275.5}
   m_SizeDelta: {x: 217.60693, y: 72.24512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1431373843
@@ -14925,7 +14925,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -305.2, y: 269.7}
+  m_AnchoredPosition: {x: -258, y: 267.6}
   m_SizeDelta: {x: 505.61603, y: 88.60443}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1926752780
@@ -15062,6 +15062,7 @@ MonoBehaviour:
   isGameRunning: 0
   totalGameTime: 0
   gameTimeRemaining: 120
+  remainderTime: 0
   restartGUI: {fileID: 244705119}
   winGUI: {fileID: 132245122}
   loseGUI: {fileID: 183966887}
